@@ -1,7 +1,7 @@
 import {test} from "../fixture";
 import {Addons, CPanelLicenses} from "../constants/product";
 
-
+//todo improvements --> select a random product & addon on each run.
 test('cPanel checkout', async ({app}) => {
     //1
     await app.shop.open();
