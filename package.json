@@ -1,0 +1,19 @@
+{
+  "name": "cPanel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "keywords": [],
+  "author": "Vadym Shubkin <vadym.shubkin@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.7",
+    "envalid": "^8.0.0",
+    "dotenv": "^16.4.7"
+  }
+}
