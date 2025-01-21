@@ -38,8 +38,7 @@ export class Configure extends Cart {
 
     @step()
     async expectTotalDueToday(){
-        //todo /\$(?!0{1,2}(?:\.0{2})?$)\d+(?:\.\d{2})?\s*(USD)?/  for case 00.00
-        const regex = /\$(\d+(?:\.\d{1,2})?)\s*(USD)?/;
+        const regex = /\$(?!0{1,2}(?:\.0{2})?$)\d+(?:\.\d{2})?\s*(USD)?/;
         await expect(this.totalDueToday).toBeVisible()
         await expect(this.totalDueToday).toHaveText(regex)
     }
