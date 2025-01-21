@@ -16,10 +16,12 @@ export default defineConfig({
     retries: process.env.CI ? 2 : 0,
     reporter: 'html',
     timeout: process.env.CI ? 30000 : 300_000,
+
     use: {
         baseURL: env.UI_URL,
         headless: !!process.env.CI,
         trace: 'on-first-retry',
+        screenshot: 'on-first-failure',
     },
 
     projects: [
