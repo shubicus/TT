@@ -15,7 +15,7 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 2 : 0,
     reporter: 'html',
-    timeout: process.env.CI ? 30000 : 300_000,
+    timeout: process.env.CI ? 30_000 : 300_000,
 
     use: {
         baseURL: env.UI_URL,

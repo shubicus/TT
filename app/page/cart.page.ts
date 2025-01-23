@@ -67,10 +67,6 @@ export class Review extends Cart {
 
     @step()
     async expectOnlyTheseItemsTitleArePresent(items: EProduct[]) {
-        // for (const title of items) {
-        //     await expect(this.page.getByText(title)).toBeVisible();
-        // }
-
         if (this.tProducts.length == 0) {
             await this.parseProducts()
         }
@@ -113,7 +109,7 @@ export class Review extends Cart {
         const items = await this.cartItems.all();
 
         for (const itemLocator of items) {
-            const titleText = await itemLocator.locator('.item-title').evaluate((node) => {
+            const titleText = await itemLocator.locator('.item-title').evaluate(node => {
                 return Array.from(node.childNodes)
                     .filter((child) => child.nodeType === Node.TEXT_NODE) // Keep only text nodes
                     .map((textNode) => textNode.textContent?.trim()) // Extract and trim text
@@ -129,7 +125,7 @@ export class Review extends Cart {
             const addonsValues = Object.values(Addons);
             const cPanelLicensesValues = Object.values(CPanelLicenses);
             const allProducts = [...addonsValues, ...cPanelLicensesValues];
-            const title = allProducts.find(product => product === titleText) as Addons | CPanelLicenses;
+            const title = allProducts.find(product => product === titleText) as EProduct;
 
             const item: TProduct = {
                 title,
@@ -209,7 +205,7 @@ export class Checkout extends Cart {
             const addonsValues = Object.values(Addons);
             const cPanelLicensesValues = Object.values(CPanelLicenses);
             const allProducts = [...addonsValues, ...cPanelLicensesValues];
-            const title = allProducts.find(product => product === productTypeText?.trim()) as Addons | CPanelLicenses;
+            const title = allProducts.find(product => product === productTypeText?.trim()) as EProduct;
 
             const ipAddress = ipAddressText?.trim();
             const recurringPrice = recurringPriceText ? Math.round(parseFloat(recurringPriceText.replace(/[^\d.]/g, '')) * 100) / 100 : 0;

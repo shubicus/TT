@@ -11,7 +11,7 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "1.49.1",
     "@types/node": "^22.10.7",
     "envalid": "^8.0.0",
     "dotenv": "^16.4.7"

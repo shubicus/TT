@@ -15,7 +15,7 @@ export enum CPanelLicenses {
 export type EProduct = CPanelLicenses | Addons;
 
 export type TProduct = {
-    title: Addons | CPanelLicenses,
+    title: EProduct,
     ipAddress?: string,
     dueTodayPrice: number;
     recurringPrice: number;
