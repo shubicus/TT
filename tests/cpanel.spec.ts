@@ -23,9 +23,11 @@ test('Verify cPanel checkout workflow', async ({app}) => {
     //7
     await app.review.clickCheckout();
     //8
-    await app.checkout.expectProductsInfoIsCorrect();
+    await app.checkout.expectProductsInfoIsCorrect([CPanelLicenses.ACCOUNT_30, Addons.MONTHLY_CLOUD_LINUX]);
     await app.checkout.expectSubtotalPriceIsCorrect()
     await app.checkout.expectTotalDueTodayPriceIsCorrect()
+    //8.1
     await app.checkout.expectSectionsAreVisible()
+    //8.2
     await app.checkout.expectBtnCompleteOrder()
 });

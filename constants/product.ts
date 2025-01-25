@@ -20,3 +20,7 @@ export type TProduct = {
     dueTodayPrice: number;
     recurringPrice: number;
 }
+
+const addonsValues = Object.values(Addons);
+const cPanelLicensesValues = Object.values(CPanelLicenses);
+export const allProducts = [...addonsValues, ...cPanelLicensesValues];

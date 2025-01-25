@@ -1,7 +1,7 @@
 import {expect} from "@playwright/test";
 import {AppPage} from "../abstractClasses";
 import {step} from "../../reporters/step";
-import {Addons, CPanelLicenses, EProduct, TProduct} from "../../constants/product";
+import {Addons, allProducts, CPanelLicenses, EProduct, TProduct} from "../../constants/product";
 
 abstract class Cart extends AppPage {
     public pagePath = '/cart.php?a=confproduct';
@@ -37,7 +37,7 @@ export class Configure extends Cart {
     }
 
     @step()
-    async expectTotalDueToday(){
+    async expectTotalDueToday() {
         const regex = /\$(?!0{1,2}(?:\.0{2})?$)\d+(?:\.\d{2})?\s*(USD)?/;
         await expect(this.totalDueToday).toBeVisible()
         await expect(this.totalDueToday).toHaveText(regex)
@@ -161,10 +161,12 @@ export class Checkout extends Cart {
     }
 
     @step()
-    async expectProductsInfoIsCorrect() {
+    async expectProductsInfoIsCorrect(items: EProduct []) {
         if (this.tProducts.length == 0) {
             await this.parseTable()
         }
+
+        expect(items).toEqual(this.tProducts.map(value => value.title))
     }
 
     @step()
@@ -197,16 +199,12 @@ export class Checkout extends Cart {
         const items = await this.tableProducts.all();
 
         for (const itemLocator of items) {
-            const productTypeText = await itemLocator.locator('td:nth-of-type(1)').textContent();
+            const titleText = await itemLocator.locator('td:nth-of-type(1)').textContent();
             const ipAddressText = await itemLocator.locator('td:nth-of-type(3)').textContent();
             const recurringPriceText = await itemLocator.locator('td:nth-of-type(4)').textContent();
             const dueTodayPriceText = await itemLocator.locator('td:nth-of-type(5)').textContent();
 
-            const addonsValues = Object.values(Addons);
-            const cPanelLicensesValues = Object.values(CPanelLicenses);
-            const allProducts = [...addonsValues, ...cPanelLicensesValues];
-            const title = allProducts.find(product => product === productTypeText?.trim()) as EProduct;
-
+            const title = allProducts.find(product => product === titleText?.trim()) as EProduct;
             const ipAddress = ipAddressText?.trim();
             const recurringPrice = recurringPriceText ? Math.round(parseFloat(recurringPriceText.replace(/[^\d.]/g, '')) * 100) / 100 : 0;
             const dueTodayPrice = dueTodayPriceText ? Math.round(parseFloat(dueTodayPriceText.replace(/[^\d.]/g, '')) * 100) / 100 : 0;
