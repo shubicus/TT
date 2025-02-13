@@ -1,3 +1,1 @@
-# Vadym Shubkin
-
-## cPanel demo
+### ...it was a tech-task
